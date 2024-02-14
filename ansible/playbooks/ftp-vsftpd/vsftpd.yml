@@ -1,0 +1,7 @@
+---
+- hosts: server
+  gather_facts: false
+  become: true
+  become_user: root1
+  roles:
+   - vsftpd

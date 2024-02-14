@@ -1,0 +1,24 @@
+- hosts: ubuntu-1
+  remote_user: root1
+  become: true
+  tasks: 
+
+    # Installing Docker
+    - name: Creating directory  # Создание директории "scripts" на удаленном хосте
+      file:
+        state: directory          
+        path: /home/root1/scripts
+        owner: root1
+        group: root1
+        mode: 0755
+
+    - name: Copying script to remote hosts # Копирование на удаленный хост скрипт, который устанавливает Docker
+      copy:
+        src: docker_install.sh
+        dest: /home/root1/scripts/
+
+    - name: Changing permition file "docker_install.sh" # Делаем скрипт исполняемым
+      file: dest=/home/root1/scripts/docker_install.sh mode=a+x
+
+    - name: Installing and running Docker   # Запуск скрипта установки Docker
+      command: sh /home/root1/scripts/docker_install.sh 

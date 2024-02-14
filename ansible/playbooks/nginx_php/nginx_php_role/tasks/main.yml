@@ -1,0 +1,39 @@
+---
+# tasks file for nginx_php_role 
+- name: Install Nginx and PHP-FPM
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - nginx
+    - php-fpm
+
+- name: Starting Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Copy "nginx.cfg" to the remote server
+  template:
+    src: ../templates/nginx_conf.j2
+    dest: /etc/nginx/nginx.conf 
+
+- name: Create directory "/opt/nginx/ansible"
+  file:
+    path: /opt/nginx/ansible
+    state: directory
+
+- name: Create file "index.php"
+  file:
+    path: /opt/nginx/ansible/index.php
+    state: file
+  notify: 
+    - Restart Nginx
+
+- name: Add content file "index.php"
+  ansible.builtin.copy:
+    content: '<?php phpinfo();?>'
+    dest: /opt/nginx/ansible/index.php
+  notify: 
+    - Restart Nginx

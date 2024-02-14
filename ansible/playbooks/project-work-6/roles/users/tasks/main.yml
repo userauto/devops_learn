@@ -1,0 +1,14 @@
+---
+# tasks file for users
+- name: Creat user
+  ansible.builtin.user:
+    name: ansible
+    home: /home/ansible/
+    shell: /bin/bash
+    password: $6$9pRU0Zq1nOJ348iP$b6WSzggEheNhoP7b9v.0NCoBL/edRvbpXaPqgCnVtahpzCRAgbYKAzZWRIUl/uPRL8V5uAmtFGaLm5UZi1UqT0
+
+- name: Set autorized key 
+  ansible.posix.authorized_key:
+    user: ansible
+    state: present
+    key: "{{ lookup('file', './files/id_rsa.pub') }}"

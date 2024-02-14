@@ -1,0 +1,11 @@
+---
+- hosts: webserver
+  geather_facts: false 
+  become: true
+  remote_user: root1
+  roles: 
+    - users_role
+    - nginx_php_role
+    
+
+  

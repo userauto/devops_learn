@@ -1,0 +1,11 @@
+- hosts: nginx-server
+  gather_facts: false
+  become: true
+  roles:
+    - http
+
+- hosts: php-fpm-server
+  gather_facts: false
+  become: true
+  roles:
+    - php

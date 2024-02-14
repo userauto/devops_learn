@@ -1,0 +1,10 @@
+- hosts: ubuntu-1
+  gather_facts: true
+  remote_user: root1 
+  become: yes
+  tasks:
+    - name: Copy file
+      fetch:
+        src: /home/root1/test_file
+        dest: ~/files1
+            

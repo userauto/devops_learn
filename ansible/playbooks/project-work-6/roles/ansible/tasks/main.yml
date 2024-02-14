@@ -1,0 +1,7 @@
+---
+# tasks file for ansible
+- name: Install ansible
+  ansible.builtin.apt:
+    name: ansible
+    state: latest
+

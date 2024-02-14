@@ -1,0 +1,11 @@
+---
+# tasks file for sql
+- name: Install Postgresql
+  ansible.builtin.apt:
+    name: postgresql-{{sql_version}}
+    state: latest
+
+- name: PostgreSQL_run
+  ansible.builtin.service:
+   name: postgresql
+   state: started

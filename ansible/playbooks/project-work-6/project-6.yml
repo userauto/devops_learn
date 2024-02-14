@@ -1,0 +1,15 @@
+---
+- hosts: database, web
+  gather_facts: true
+  become: true
+  roles:
+    - ansible
+    - sql
+    - users
+
+- hosts: app
+  gather_facts: true
+  become: true
+  roles:
+    - users
+    - docker

@@ -1,0 +1,12 @@
+---
+# tasks file for vsftpd
+- name: Install and run vsftpd
+  ansible.builtin.apt:
+    name: vsftpd
+    state: latest
+
+- name: Start vsftpd
+  service: 
+    name: vsftpd
+    state: started
+    enabled: yes

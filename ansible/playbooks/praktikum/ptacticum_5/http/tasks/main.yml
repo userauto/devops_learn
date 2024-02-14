@@ -1,0 +1,28 @@
+---
+# tasks file for http
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: latest
+
+- name: Start and enable Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Remove 'index.html'
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name: Create 'index.php'
+  ansible.builtin.template:
+    src: index.php.j2
+    dest: /var/www/html/index.php
+
+- name: Change '/etc/nginx/sites-available/default'
+  ansible.builtin.template:
+    src: nginx-cfg.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Restart Nginx

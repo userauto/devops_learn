@@ -1,0 +1,22 @@
+---
+- name: Init or drop Postfix.
+  hosts: webserver
+  remote_user: root1
+  become: yes
+
+  tasks: 
+    
+  - name: Install Postfix.
+    ansible.builtin.apt: 
+      name: postfix  
+      state: latest
+    tags:
+    - init postfix
+
+  - name: Drop Postfix.
+    apt:
+      name: postfix
+      state: absent
+      purge: yes
+    tags:
+    - drop postfix

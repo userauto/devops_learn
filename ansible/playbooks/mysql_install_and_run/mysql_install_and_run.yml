@@ -1,0 +1,13 @@
+- hosts: ubuntu-1
+  remote_user: root1
+  become: true
+  tasks:
+
+    # Installing and running MySQL
+    - name: Installing and running MySQL # Установка MySQL
+      apt:
+        name: mysql-server
+        state: latest    
+  
+    - name: Starting MySQL # Запуск MySQL
+      action: service name=mysql state=started

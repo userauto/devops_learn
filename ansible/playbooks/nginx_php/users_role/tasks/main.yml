@@ -1,0 +1,42 @@
+---
+# tasks file for users_role
+
+- name: Create "user1"
+  ansible.builtin.user:
+    name: user1
+    home: /home/user1
+    shell: /bin/bash
+
+- name: Create "user2"
+  ansible.builtin.user:
+    name: user2
+    home: /home/user2
+    shell: /bin/bash
+    
+- name: Change password for "user1"
+  ansible.builtin.user:
+    name: user1
+    password: $6$9pRU0Zq1nOJ348iP$b6WSzggEheNhoP7b9v.0NCoBL/edRvbpXaPqgCnVtahpzCRAgbYKAzZWRIUl/uPRL8V5uAmtFGaLm5UZi1UqT0
+    
+- name: Change password for "user2"
+  ansible.builtin.user:
+    name: user2
+    password: $6$9pRU0Zq1nOJ348iP$b6WSzggEheNhoP7b9v.0NCoBL/edRvbpXaPqgCnVtahpzCRAgbYKAzZWRIUl/uPRL8V5uAmtFGaLm5UZi1UqT0
+
+- name: Set authorized key for "user1" and "user2"
+  ansible.posix.authorized_key:
+    user: "{{ item }}"
+    state: present
+    key: "{{ lookup('file', './files/id_rsa.pub') }}"
+  loop: 
+    - user1
+    - user2
+
+- name: Change file "/etc/sudoers" on the remote hosts 
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    line: "{{ item }}"
+    backup: true
+  loop: 
+    - user1   ALL=(ALL:ALL) NOPASSWD:ALL
+    - user2   ALL=(ALL:ALL) NOPASSWD:ALL

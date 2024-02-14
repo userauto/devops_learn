@@ -1,0 +1,32 @@
+- name: Create new user and copy my public SSH-key to "/home/use1/.ssh/" on the remote host
+  hosts: webserver
+  remote_user: root1
+  become: yes  
+  
+  vars:
+    - user: user1
+    - pass_user: $6$9pRU0Zq1nOJ348iP$b6WSzggEheNhoP7b9v.0NCoBL/edRvbpXaPqgCnVtahpzCRAgbYKAzZWRIUl/uPRL8V5uAmtFGaLm5UZi1UqT0
+    - authorized_keys: ./files/authorized_keys
+  
+  tasks: 
+
+  - name: Creating user
+    ansible.builtin.user:
+      name: '{{ user }}'
+      home: '/home/{{ user }}'
+      shell: /bin/bash    
+      generate_ssh_key: true
+
+  - name: Change password
+    ansible.builtin.user:
+      name: '{{ user }}'
+      password: '{{ pass_user }}'
+
+  - name: Set authorized key taken from file
+    ansible.posix.authorized_key:
+      user: '{{ user }}'
+      state: present
+      key: "{{ lookup('file', './files/id_rsa.pub') }}"
+    
+
+  
