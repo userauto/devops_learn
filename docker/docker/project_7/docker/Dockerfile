@@ -1,0 +1,8 @@
+FROM python:3.7-alpine
+WORKDIR /srv/app
+COPY ./requirements.txt /
+RUN apk add libpq-dev gcc  
+RUN pip install -r /requirements.txt
+COPY ./web.py ./
+COPY ./web.conf ./conf/
+CMD ["python", "web.py"]

@@ -1,0 +1,9 @@
+FROM python:3
+WORKDIR /srv/app
+#RUN apt-get update -y
+#RUN apt-get install -y python3-pip python3-dev build-essential
+COPY ./requirements.txt / 
+RUN pip3 install -r /requirements.txt
+COPY ./web.py ./
+COPY ./web.conf ./conf/
+CMD ["python", "web.py"] 

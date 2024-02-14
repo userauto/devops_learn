@@ -1,0 +1,68 @@
+---
+- name: Transfer "Install Postgresql"
+  copy:
+    src: ./roles/postgres/files/install_postgresql.sh
+    dest: /tmp
+    mode: 0777
+
+- name: Enable Postgresql
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+
+- name: Execute the script "Install Postgresql"
+  command: sh /tmp/install_postgresql.sh
+
+- name: Install app for Python 
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - python3-pip
+    - python3
+    - python3-pip
+    - python3-apt
+    - libpq-dev 
+    - python-dev-is-python3
+
+- name: Install "psycopg2"
+  ansible.builtin.package:
+    name: python3-psycopg2
+    state: present
+
+# For correct exec task need to add line in the ansible.cfg "allow_world_readable_tmpfiles"
+- name: Create user for Postgresql
+  community.postgresql.postgresql_user:
+     db: "{{ db_name }}"
+     name: "{{ db_user }}"
+     password: "{{ db_password }}"
+     role_attr_flags: CREATEDB,SUPERUSER
+  become: true   
+  become_user: postgres
+
+# For correct exec task need to add line in the ansible.cfg "allow_world_readable_tmpfiles"
+- name: Create data base Postgresql
+  community.postgresql.postgresql_db:
+    state: present
+    name: "{{ db_name }}" 
+  become: true
+  become_user: postgres
+
+# For correct exec task need to add line in the ansible.cfg "allow_world_readable_tmpfiles"
+- name: Grant db user access to db
+  community.postgresql.postgresql_privs:
+    type: database
+    database: "{{ db_name }}"
+    roles: "{{ db_user }}"
+    privs: all
+    grant_option: false
+  become: true
+  become_user: postgres
+
+
+# Another variant to install Postgresql
+# tasks file for postgres
+#- name: Install Postgresql
+#  ansible.builtin.apt:
+#    name: postgresql-{{postgresql_version}}
+#    state: present

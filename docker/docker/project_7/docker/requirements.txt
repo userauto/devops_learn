@@ -1,0 +1,3 @@
+flask
+configParser
+psycopg2-binary

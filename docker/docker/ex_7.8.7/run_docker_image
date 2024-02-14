@@ -1,0 +1,1 @@
+docker run -it -d -v /var/docker_data/exersice7.8.6:/var/docker_data/exersice7.8.6/ favicon - Команда для

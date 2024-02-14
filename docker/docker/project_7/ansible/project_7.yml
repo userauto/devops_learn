@@ -1,0 +1,7 @@
+- hosts: servers
+  become: true
+  roles:
+    - postgres
+  #- docker
+
+#gather_facts: true

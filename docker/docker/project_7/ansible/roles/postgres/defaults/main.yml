@@ -1,0 +1,7 @@
+---
+# defaults file for postgres
+postgresql_version: 14
+db_name: project
+db_user: root1
+db_password: 3646
+

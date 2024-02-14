@@ -1,0 +1,11 @@
+{
+  "name": "ex-b9.5.1",
+  "version": "1.0.0",
+  "description": "exersice 9.5.1",
+  "main": "array.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aleksey Potapov",
+  "license": "ISC"
+}
