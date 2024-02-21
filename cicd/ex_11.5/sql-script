@@ -1,0 +1,5 @@
+#Этот скрипт добавляет нового сотрудника в таблицу employees с идентификатором 1, 
+именем John, фамилией Doe, электронной почтой johndoe@email.com и датой найма 1 января 2022 года.
+
+INSERT INTO employees (id, first_name, last_name, email, hire_date)
+VALUES (1, 'John', 'Doe', 'johndoe@email.com', '2022-01-01');

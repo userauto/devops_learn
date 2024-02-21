@@ -1,0 +1,54 @@
+/* groovylint-disable-next-line CompileStatic */
+pipeline {
+    agent any
+
+    stages {
+        stage('1-string') {
+            steps {
+                sh '''
+                    echo "select * from rfamseq rf limit 1" | mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam | column -t
+                '''
+            }
+        }
+        stage('All-RNK-spints') {
+            steps {
+                sh '''
+                    mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam <<EOF
+SELECT fr.rfam_acc, fr.rfamseq_acc, fr.seq_start, fr.seq_end
+FROM full_region fr, rfamseq rf, taxonomy tx
+WHERE rf.ncbi_id = tx.ncbi_id
+AND fr.rfamseq_acc = rf.rfamseq_acc
+AND tx.ncbi_id = 10116 -- NCBI taxonomy id of Rattus norvegicus
+AND is_significant = 1 -- exclude low-scoring matches from the same clan
+EOF
+                '''
+            }
+        }
+    }
+}
+
+/* groovylint-disable-next-line CompileStatic */
+/*pipeline {
+/*    agent any
+/*
+/*    stages {
+/*        stage('1-string') {
+/*            steps {
+/*                sh '''
+/*                    /var/lib/jenkins/tmp/print-first-line.sh
+/*                    cat output.sql-1
+/*
+/*                '''
+/*            }
+/*        }
+/*        stage('All-RNK-spints') {
+/*            steps {
+/*                sh '''
+/*                    /var/lib/jenkins/tmp/all-rnk-splints.sh
+/*                    cat output.sql-2
+/*                '''
+/*            }
+/*        }
+/*    }
+/*}
+/*

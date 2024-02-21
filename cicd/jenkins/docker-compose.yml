@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+
+  httpd:
+    image: httpd:2.4
+    volumes:
+      - ./site:/usr/local/apache2/htdocs
+    ports:
+      - 8082:80
+    restart: always
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    volumes:
+     - jenkins_home:/var/jenkins_home
+    ports:
+      - 50000:50000
+      - 8081:8080
+    restart: always
+
+# Обязательно предварительно создать volume "jenkins_home"
+# Команда для создания volume: docker volume create jenkins_home  
+volumes:
+  jenkins_home:
+    external: true

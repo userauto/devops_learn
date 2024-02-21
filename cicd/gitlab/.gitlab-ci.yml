@@ -1,0 +1,5 @@
+---
+test:
+  script:
+    - ([ -f /home/devops/devops_learn/CICD/ex_1/site/index.html ]) || (echo 'Executing no. 1' >/home/devops/devops_learn/CICD/ex_1/site/index.html) && (echo "Executing no. `awk {'print $NF'+1} /home/devops/devops_learn/CICD/ex_1/site/index.html `" > /home/devops/devops_learn/CICD/ex_1/site/index.html)
+  when: manual
