@@ -1,0 +1,1 @@
+docker run --name nginx --rm -d -p 9889:80 -v /var/lib/jenkins/github/site:/var/www/html nginx:latest
