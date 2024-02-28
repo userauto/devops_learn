@@ -1,0 +1,7 @@
+Paasword for ouside app mail.ru: Ni76P4fVfZkpHnDp4aqm
+
+Telegram bot TOKEN: 7094254109:AAF1KYBKvInh252FPJAaq0gG3EeH1qmnUFI
+Chat id: 884174870
+
+https://api.telegram.org/bot7094254109:AAF1KYBKvInh252FPJAaq0gG3EeH1qmnUFI/getUpdates
+

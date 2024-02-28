@@ -1,0 +1,29 @@
+Что нужно сделать
+Создайте в Я.Облаке виртуальную машину под управлением Linux. Это будет ВМ для УЦ.
+Создайте новую внутреннюю доменную зону (используя Yandex Cloud DNS), затем добавьте в эту зону новую DNS-запись, указывающую на машину с Artifactory. Доменное имя используйте любое на свое усмотрение.
+На ВМ для УЦ создайте корневой и серверный сертификат для вашей машины (для выбранного вами доменного имени).
+Настройте Artifatory на использование SSL и созданного вами сертификата. (Выбирайте любой из вариантов: настройка SSL на TomCat, работающем с Artifactory веб-сервере, либо настройка связки nginx+Artifactory).
+Создайте еще одну машину в Я.Облаке, теперь под управлением Windows. Она потребуется для проверки выполнения задания.
+Установите созданный вами корневой сертификат на вашу ВМ под управлением Windows. (Созданное выше доменное имя будет работать только на машинах из Я.Облака, поэтому проверить настройки с помощью своего ноутбука не выйдет).
+С помощью веб-браузера зайдите (по HTTPS-протоколу) на машину, где развернут Artifactory, и убедитесь, что соединение защищено.
+Отправьте ментору скриншот с подтверждением защищенного соединения, доменное имя вашей машины и порт, на котором работает Artifactory.
+
+** Connection parameters **
+Nginx Server
+Domain name: nginx.devops.com.
+External ip4: 158.160.13.142 
+Internal ip4: 10.129.0.29
+
+
+Additional setup:
+
+** Setup the following values: /etc/ssh/sshd_config **
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+
+** Installed the package **
+apt install xorg-x11-apps
+apt install xauth
+
+docker run -d -p 443:443 cp /home/nginx/site/crt/site.crt CONTAINER:/etc/ssl/certs/ cp /home/nginx/site/key/site.key CONTAINER:/etc/ssl/private/ -v /home/nginx/site/html:/usr/share/nginx/html -v /home/nginx/site/nginx.conf:/etc/nginx/conf.d nginx 

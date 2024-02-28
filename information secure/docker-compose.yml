@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  nginx:
+    image: "nginx:latest"
+    volumes:
+      - /home/nginx/site/html:/usr/share/nginx/html 
+      - /home/nginx/site/nginx.conf:/etc/nginx/conf.d
+      - /home/nginx/site/crt:/etc/ssl/certs/site
+      - /home/nginx/site/key:/etc/ssl/private/site
+    ports:
+      - 443:443 
