@@ -1,8 +1,0 @@
-(rate(node_cpu_seconds_total{ job="node-exporter", mode="idle"}[5m])) * 100
-
-sum(time() - node_boot_time_seconds{}) / 3600 - up time in minutes
-node_time_seconds{instance="node-exporter:9100",job="node-exporter"} - node_boot_time_seconds{instance="node-exporter:9100",job="node-exporter"} - uptime in min/houer
-
-100 - ((node_filesystem_avail_bytes{instance="node-exporter:9100",job="node-exporter",device!~'rootfs'} * 100) / node_filesystem_size_bytes{instance="node-exporter:9100",job="node-exporter",device!~'rootfs'}) - load disk
-
-100 * (1 - avg(rate(node_cpu_seconds_total{mode="idle", instance="node-exporter:9100"}[$__rate_interval]))) - Busy state of all CPU cores together
