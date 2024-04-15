@@ -1,0 +1,13 @@
+#cloud-config
+datasource:
+ Ec2:
+  strict_id: false
+ssh_pwauth: no
+users:
+- name: admin1
+  groups: sudo
+  shell: /bin/bash
+  sudo: 'ALL=(ALL) NOPASSWD:ALL'
+  ssh-authorized-keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDG5qGN+l+N4DiHXRW7FzPS2tADZBNP9s7VXNErTZjitpQ4y+dAAofl7Lai4S0UzVsRMLO4gCKlnJctfvyX4QnBiFgJoi744PwxQpRqiPIFEolu7owTFLAf4bM2RFXCloUHtVioHbbe93VJXghHAcDG2w1/CmoNsYMGOZjVGdGDICc6P/HnTIuI80C0j3XN6zWJTqmpr8bzYhUYlIDAzRqtQJVZ/o4tmuqFMdqI0Ds3z29g8SGWGR+9j2FUDu4lMmH1BrNzkiJlo5yW9A3TFh3ajzKSUh7SQ7cEXcFV2uueLPbRNpNq7B7fUS6l54SWyiAKORRkmN6TZ2b+gIxr1mLy/pra+zco6M7bNeYmqIp38Ya0eR9tSOE08JgIy+/SncHDzPiZfV+xbtu+P7iQ2p3dexzF3Hncb+HxncVErN0Djnl0SUDI4rfkTsYa9P33jk2Rt8CGEqe7PFFvnOQ+HSuVuZaGu+e7v8jUamrXKr/fcAXY5jdtwpG7sEFdPamds0E= username@notebook   
+runcmd: []
