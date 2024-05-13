@@ -29,6 +29,7 @@ resource "yandex_compute_instance" "vm-1-nginx" {
 
   metadata = {
     user-data = "${file("./meta.yml")}"
+    user-data = templatefile(meta.yml.tpl)
   }
 
   scheduling_policy {

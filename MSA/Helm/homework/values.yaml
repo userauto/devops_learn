@@ -1,0 +1,8 @@
+prometheus-pushgateway:
+  enabled: false
+
+prometheus-node-exporter:
+  enabled: false
+
+alertmanager:
+  enabled: false
