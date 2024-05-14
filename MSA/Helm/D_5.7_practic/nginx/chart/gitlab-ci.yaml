@@ -1,0 +1,6 @@
+helm upgrade --atomic \
+                   --timeout 300s \
+                   --values values.yaml \
+                   --install \
+                   --namespace ${NAMESPACE} \
+                   myapp .
